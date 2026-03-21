@@ -1,38 +1,21 @@
-const CACHE_NAME = 'mediintake-v1'
-const STATIC_ASSETS = [
-  '/',
-  '/manifest.json'
-]
+var CACHE = 'mediintake-v2';
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
-  )
-  self.skipWaiting()
-})
+self.addEventListener('install', function(e) {
+  self.skipWaiting();
+});
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
-  )
-  self.clients.claim()
-})
+self.addEventListener('activate', function(e) {
+  e.waitUntil(self.clients.claim());
+});
 
-self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return
-  if (event.request.url.includes('supabase')) return
+self.addEventListener('fetch', function(e) {
+  if (e.request.method !== 'GET') return;
+  if (e.request.url.indexOf('supabase') > -1) return;
+  if (e.request.url.indexOf('chrome-extension') > -1) return;
 
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        if (response && response.status === 200) {
-          const clone = response.clone()
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone))
-        }
-        return response
-      })
-      .catch(() => caches.match(event.request))
-  )
-})
+  e.respondWith(
+    fetch(e.request).catch(function() {
+      return caches.match(e.request);
+    })
+  );
+});
