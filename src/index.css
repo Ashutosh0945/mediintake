@@ -234,3 +234,103 @@
 .light-mode .label { color: #0E7490 !important; }
 .light-mode .stat-card { background: white !important; border-color: rgba(8,145,178,0.2) !important; }
 .light-mode select.input option { background: white; color: #0C4A6E; }
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT OCEAN MODE
+   ═══════════════════════════════════════════════════════════ */
+.light-mode body {
+  background: #F0F9FF !important;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(8,145,178,0.1) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 100%, rgba(6,182,212,0.06) 0%, transparent 55%) !important;
+  color: #0C4A6E !important;
+}
+
+/* Cards */
+.light-mode .card {
+  background: rgba(255,255,255,0.96) !important;
+  border-color: rgba(8,145,178,0.18) !important;
+  box-shadow: 0 2px 16px rgba(8,145,178,0.08), 0 0 0 1px rgba(8,145,178,0.04) !important;
+}
+.light-mode .card-hover:hover {
+  border-color: rgba(34,211,238,0.5) !important;
+  box-shadow: 0 8px 28px rgba(34,211,238,0.14) !important;
+}
+
+/* Inputs */
+.light-mode .input {
+  background: rgba(255,255,255,0.98) !important;
+  border-color: rgba(8,145,178,0.22) !important;
+  color: #0C4A6E !important;
+  box-shadow: inset 0 1px 3px rgba(8,145,178,0.05) !important;
+}
+.light-mode .input::placeholder { color: rgba(8,145,178,0.3) !important; }
+.light-mode .input:focus {
+  border-color: #0891B2 !important;
+  box-shadow: 0 0 0 4px rgba(8,145,178,0.1), inset 0 1px 3px rgba(8,145,178,0.05) !important;
+}
+.light-mode select.input option { background: white !important; color: #0C4A6E !important; }
+
+/* Buttons */
+.light-mode .btn-secondary {
+  background: white !important;
+  color: #0E7490 !important;
+  border-color: rgba(8,145,178,0.28) !important;
+}
+.light-mode .btn-secondary:hover {
+  background: #E0F7FF !important;
+  border-color: #0891B2 !important;
+  color: #0C4A6E !important;
+}
+.light-mode .btn-danger {
+  background: rgba(220,38,38,0.06) !important;
+  color: #B91C1C !important;
+  border-color: rgba(220,38,38,0.2) !important;
+}
+
+/* Text */
+.light-mode .section-title { color: #0C4A6E !important; }
+.light-mode .label { color: #0E7490 !important; opacity: 0.8; }
+
+/* Stat cards */
+.light-mode .stat-card {
+  background: white !important;
+  border-color: rgba(8,145,178,0.18) !important;
+  box-shadow: 0 2px 12px rgba(8,145,178,0.07) !important;
+}
+
+/* Badges */
+.light-mode .badge-low {
+  background: rgba(52,211,153,0.12) !important;
+  color: #065F46 !important;
+  border-color: rgba(52,211,153,0.3) !important;
+}
+.light-mode .badge-medium {
+  background: rgba(8,145,178,0.1) !important;
+  color: #0E7490 !important;
+  border-color: rgba(8,145,178,0.28) !important;
+}
+.light-mode .badge-high {
+  background: rgba(220,38,38,0.08) !important;
+  color: #B91C1C !important;
+  border-color: rgba(220,38,38,0.22) !important;
+}
+
+/* Scrollbar */
+.light-mode ::-webkit-scrollbar-thumb { background: rgba(8,145,178,0.2); }
+.light-mode ::-webkit-scrollbar-thumb:hover { background: #0891B2; }
+
+/* Selection */
+.light-mode ::selection { background: rgba(34,211,238,0.2); color: #0C4A6E; }
+
+/* Inline color overrides */
+.light-mode [style*="color: #E0F7FF"] { color: #0C4A6E !important; }
+.light-mode [style*="color: #A5F3FC"] { color: #0E7490 !important; }
+.light-mode [style*="color: #67E8F9"] { color: #0891B2 !important; }
+.light-mode [style*="rgba(103,232,249,0.4)"] { color: #5EAAC8 !important; }
+.light-mode [style*="rgba(165,243,252,0.5)"] { color: #4A9AB5 !important; }
+.light-mode [style*="background: rgba(2,26,60"] { background: rgba(255,255,255,0.96) !important; }
+.light-mode [style*="background: rgba(2,15,40"] { background: white !important; }
+.light-mode [style*="background: rgba(2,6,23"] { background: #F0F9FF !important; }
+.light-mode [style*="background: #020617"] { background: #F0F9FF !important; }
+.light-mode [style*="border-color: rgba(8,145"] { border-color: rgba(8,145,178,0.2) !important; }
