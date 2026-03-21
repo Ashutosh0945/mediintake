@@ -10,7 +10,6 @@ export default function Navbar({ unreadCount = 0 }) {
   const navigate = useNavigate()
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
-
   const handleSignOut = async () => { await signOut(); navigate('/') }
 
   const patientLinks = [
@@ -22,9 +21,9 @@ export default function Navbar({ unreadCount = 0 }) {
     { to: '/vaccinations',         label: 'Vaccines',       icon: Syringe },
     { to: '/appointments',         label: 'Appointments',   icon: Calendar },
     { to: '/medication-reminders', label: 'Medications',    icon: Pill },
-    { to: '/notifications',        label: 'Notifications',  icon: Bell, badge: unreadCount },
-    { to: '/medical-profile',      label: 'Medical Profile',icon: User },
-    { to: '/edit-profile',         label: 'Edit Profile',   icon: Edit },
+    { to: '/notifications',        label: 'Alerts',         icon: Bell, badge: unreadCount },
+    { to: '/medical-profile',      label: 'Profile',        icon: User },
+    { to: '/edit-profile',         label: 'Edit',           icon: Edit },
     { to: '/change-password',      label: 'Password',       icon: Lock },
   ]
   const adminLinks = [
@@ -32,112 +31,74 @@ export default function Navbar({ unreadCount = 0 }) {
     { to: '/admin/doctor-profile', label: 'My Profile', icon: Stethoscope },
   ]
   const links = isAdmin ? adminLinks : patientLinks
-  const isActive = (path) => location.pathname === path
+  const isActive = (p) => location.pathname === p
 
   return (
-    <nav style={{ background: 'linear-gradient(135deg, #0B2447 0%, #19376D 100%)', borderBottom: '1px solid rgba(255,255,255,0.08)', boxShadow: '0 4px 20px rgba(11,36,71,0.2)' }} className="sticky top-0 z-50">
+    <nav style={{ background: 'rgba(2,6,23,0.95)', borderBottom: '1px solid rgba(8,145,178,0.25)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 50, boxShadow: '0 4px 24px rgba(0,0,0,0.5)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
 
-        {/* Logo */}
-        <Link to={isAdmin ? '/admin' : '/dashboard'} className="flex items-center gap-2.5 group flex-shrink-0">
-          <div style={{ background: 'rgba(30,136,229,0.2)', border: '1px solid rgba(30,136,229,0.4)', borderRadius: '10px', width: '36px', height: '36px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            className="group-hover:bg-blue-500/30 transition-colors">
-            <Activity className="w-4 h-4 text-blue-300" />
+        <Link to={isAdmin ? '/admin' : '/dashboard'} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+          <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg,#0E7490,#0891B2)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 14px rgba(8,145,178,0.5)' }}>
+            <Activity style={{ width: '16px', height: '16px', color: '#67E8F9' }} />
           </div>
           <div>
-            <span style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontWeight: 800, color: 'white', fontSize: '16px', letterSpacing: '-0.02em' }}>
-              Medi<span style={{ color: '#64B5F6' }}>Intake</span>
-            </span>
-            <div style={{ fontSize: '9px', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em', textTransform: 'uppercase', lineHeight: 1 }}>
-              Healthcare System
+            <div style={{ fontFamily: 'Outfit,sans-serif', fontWeight: 900, fontSize: '17px', letterSpacing: '-0.03em', color: '#E0F7FF' }}>
+              Medi<span style={{ color: '#22D3EE' }}>Intake</span>
             </div>
+            <div style={{ fontSize: '9px', color: 'rgba(103,232,249,0.35)', letterSpacing: '0.1em', textTransform: 'uppercase', lineHeight: 1 }}>Healthcare</div>
           </div>
         </Link>
 
-        {/* Desktop links */}
         <div className="hidden lg:flex items-center gap-0.5 overflow-x-auto max-w-3xl">
           {links.map(({ to, label, icon: Icon, badge }) => (
-            <Link key={to} to={to}
-              style={isActive(to) ? {
-                background: 'rgba(30,136,229,0.2)',
-                color: '#90CAF9',
-                border: '1px solid rgba(30,136,229,0.3)',
-                borderRadius: '8px',
-                padding: '6px 10px',
-                fontSize: '12px',
-                fontWeight: 600,
-                display: 'flex', alignItems: 'center', gap: '5px',
-                whiteSpace: 'nowrap', position: 'relative',
-              } : {
-                color: 'rgba(255,255,255,0.55)',
-                borderRadius: '8px',
-                padding: '6px 10px',
-                fontSize: '12px',
-                fontWeight: 500,
-                display: 'flex', alignItems: 'center', gap: '5px',
-                whiteSpace: 'nowrap', position: 'relative',
-                transition: 'all 0.15s',
-              }}
-              onMouseEnter={e => { if (!isActive(to)) e.currentTarget.style.color = 'rgba(255,255,255,0.9)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)' }}
-              onMouseLeave={e => { if (!isActive(to)) { e.currentTarget.style.color = 'rgba(255,255,255,0.55)'; e.currentTarget.style.background = 'transparent' } }}
+            <Link key={to} to={to} style={{ textDecoration: 'none', position: 'relative', display: 'flex', alignItems: 'center', gap: '5px', padding: '6px 9px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, whiteSpace: 'nowrap', transition: 'all 0.15s',
+              background: isActive(to) ? 'rgba(8,145,178,0.2)' : 'transparent',
+              color: isActive(to) ? '#67E8F9' : 'rgba(103,232,249,0.4)',
+              border: isActive(to) ? '1px solid rgba(34,211,238,0.3)' : '1px solid transparent',
+            }}
+              onMouseEnter={e => { if (!isActive(to)) { e.currentTarget.style.color='rgba(165,243,252,0.85)'; e.currentTarget.style.background='rgba(8,145,178,0.1)' } }}
+              onMouseLeave={e => { if (!isActive(to)) { e.currentTarget.style.color='rgba(103,232,249,0.4)'; e.currentTarget.style.background='transparent' } }}
             >
-              <Icon style={{ width: '13px', height: '13px' }} />
-              {label}
-              {badge > 0 && (
-                <span style={{ position: 'absolute', top: '-2px', right: '-2px', width: '16px', height: '16px', background: '#F59E0B', color: '#0B2447', fontSize: '10px', fontWeight: 700, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  {badge > 9 ? '9+' : badge}
-                </span>
-              )}
+              <Icon style={{ width: '13px', height: '13px' }} />{label}
+              {badge > 0 && <span style={{ position: 'absolute', top: '-3px', right: '-3px', width: '16px', height: '16px', background: '#0891B2', color: 'white', fontSize: '9px', fontWeight: 800, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{badge > 9 ? '9+' : badge}</span>}
             </Link>
           ))}
         </div>
 
-        {/* Right side */}
         <div className="flex items-center gap-2 flex-shrink-0">
-          <button onClick={toggleTheme}
-            style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '7px', color: 'rgba(255,255,255,0.6)', cursor: 'pointer', transition: 'all 0.2s' }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.14)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
-          >
-            {theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+          <button onClick={toggleTheme} style={{ background: 'rgba(8,145,178,0.1)', border: '1px solid rgba(8,145,178,0.25)', borderRadius: '8px', padding: '7px', color: '#67E8F9', cursor: 'pointer', transition: 'all 0.2s', display: 'flex' }}
+            onMouseEnter={e => e.currentTarget.style.background='rgba(8,145,178,0.2)'}
+            onMouseLeave={e => e.currentTarget.style.background='rgba(8,145,178,0.1)'}>
+            {theme === 'dark' ? <Sun style={{ width: '14px', height: '14px' }} /> : <Moon style={{ width: '14px', height: '14px' }} />}
           </button>
-
-          <div className="hidden sm:flex items-center gap-2" style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', padding: '6px 10px' }}>
-            <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#4CAF50', boxShadow: '0 0 6px #4CAF50' }} />
-            <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.85)', fontWeight: 600 }}>{profile?.full_name?.split(' ')[0]}</span>
-            <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '5px', background: isAdmin ? 'rgba(167,139,250,0.2)' : 'rgba(30,136,229,0.2)', color: isAdmin ? '#C4B5FD' : '#90CAF9', fontWeight: 700 }}>
+          <div className="hidden sm:flex items-center gap-2" style={{ background: 'rgba(8,145,178,0.1)', border: '1px solid rgba(8,145,178,0.22)', borderRadius: '10px', padding: '6px 12px' }}>
+            <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#22D3EE', boxShadow: '0 0 6px #22D3EE' }} className="animate-pulse-slow" />
+            <span style={{ fontSize: '12px', color: '#A5F3FC', fontWeight: 700 }}>{profile?.full_name?.split(' ')[0]}</span>
+            <span style={{ fontSize: '10px', padding: '2px 6px', borderRadius: '6px', background: isAdmin ? 'rgba(167,139,250,0.2)' : 'rgba(34,211,238,0.15)', color: isAdmin ? '#C4B5FD' : '#67E8F9', fontWeight: 800 }}>
               {isAdmin ? 'ADMIN' : 'PATIENT'}
             </span>
           </div>
-
-          <button onClick={handleSignOut}
-            style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '7px', color: 'rgba(255,255,255,0.55)', cursor: 'pointer', transition: 'all 0.2s' }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(198,40,40,0.2)'; e.currentTarget.style.color = '#EF9A9A' }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)' }}
-            title="Sign out"
-          >
-            <LogOut className="w-3.5 h-3.5" />
+          <button onClick={handleSignOut} style={{ background: 'rgba(8,145,178,0.1)', border: '1px solid rgba(8,145,178,0.25)', borderRadius: '8px', padding: '7px', color: 'rgba(103,232,249,0.4)', cursor: 'pointer', transition: 'all 0.2s', display: 'flex' }}
+            onMouseEnter={e => { e.currentTarget.style.background='rgba(220,38,38,0.15)'; e.currentTarget.style.color='#FCA5A5'; e.currentTarget.style.borderColor='rgba(220,38,38,0.3)' }}
+            onMouseLeave={e => { e.currentTarget.style.background='rgba(8,145,178,0.1)'; e.currentTarget.style.color='rgba(103,232,249,0.4)'; e.currentTarget.style.borderColor='rgba(8,145,178,0.25)' }}>
+            <LogOut style={{ width: '14px', height: '14px' }} />
           </button>
-
-          <button className="lg:hidden" onClick={() => setMenuOpen(!menuOpen)}
-            style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', padding: '7px', color: 'rgba(255,255,255,0.7)', cursor: 'pointer' }}>
-            {menuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          <button className="lg:hidden" onClick={() => setMenuOpen(!menuOpen)} style={{ background: 'rgba(8,145,178,0.1)', border: '1px solid rgba(8,145,178,0.25)', borderRadius: '8px', padding: '7px', color: '#67E8F9', cursor: 'pointer', display: 'flex' }}>
+            {menuOpen ? <X style={{ width: '16px', height: '16px' }} /> : <Menu style={{ width: '16px', height: '16px' }} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
-        <div style={{ background: '#0B2447', borderTop: '1px solid rgba(255,255,255,0.08)' }} className="lg:hidden px-4 py-3 flex flex-col gap-1 animate-fade-in max-h-96 overflow-y-auto">
+        <div style={{ background: 'rgba(2,6,23,0.98)', borderTop: '1px solid rgba(8,145,178,0.2)' }} className="lg:hidden px-4 py-3 flex flex-col gap-1 animate-fade-in max-h-96 overflow-y-auto">
           {links.map(({ to, label, icon: Icon, badge }) => (
-            <Link key={to} to={to} onClick={() => setMenuOpen(false)}
-              style={isActive(to)
-                ? { background: 'rgba(30,136,229,0.2)', color: '#90CAF9', borderRadius: '8px', padding: '10px 12px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '10px', border: '1px solid rgba(30,136,229,0.25)' }
-                : { color: 'rgba(255,255,255,0.55)', borderRadius: '8px', padding: '10px 12px', fontSize: '13px', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '10px' }}
-            >
-              <Icon style={{ width: '15px', height: '15px' }} />
-              {label}
-              {badge > 0 && <span style={{ marginLeft: 'auto', width: '20px', height: '20px', background: '#F59E0B', color: '#0B2447', fontSize: '11px', fontWeight: 700, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{badge}</span>}
+            <Link key={to} to={to} onClick={() => setMenuOpen(false)} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', borderRadius: '10px', fontSize: '13px', fontWeight: 600,
+              background: isActive(to) ? 'rgba(8,145,178,0.18)' : 'transparent',
+              color: isActive(to) ? '#67E8F9' : 'rgba(103,232,249,0.4)',
+              border: isActive(to) ? '1px solid rgba(34,211,238,0.25)' : '1px solid transparent',
+            }}>
+              <Icon style={{ width: '15px', height: '15px' }} />{label}
+              {badge > 0 && <span style={{ marginLeft: 'auto', width: '20px', height: '20px', background: '#0891B2', color: 'white', fontSize: '10px', fontWeight: 800, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{badge}</span>}
             </Link>
           ))}
         </div>

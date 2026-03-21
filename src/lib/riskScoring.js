@@ -105,7 +105,7 @@ export function calculateRiskScore({ symptoms = [], severity = 'mild', heartRate
 }
 
 export const RISK_COLORS = {
-  low:    { bg: 'badge-low',    dot: 'bg-green-600',  text: 'text-green-700',  border: 'border-green-300' },
-  medium: { bg: 'badge-medium', dot: 'bg-orange-600', text: 'text-orange-700', border: 'border-orange-300' },
-  high:   { bg: 'badge-high',   dot: 'bg-red-700',    text: 'text-red-800',    border: 'border-red-300' },
+  low:    { bg: 'badge-low',    dot: 'bg-emerald-400', text: 'text-emerald-300', border: 'border-emerald-500/30' },
+  medium: { bg: 'badge-medium', dot: 'bg-cyan-400',    text: 'text-cyan-300',    border: 'border-cyan-500/30' },
+  high:   { bg: 'badge-high',   dot: 'bg-red-400',    text: 'text-red-300',    border: 'border-red-500/30' },
 }
