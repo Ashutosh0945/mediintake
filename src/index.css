@@ -321,3 +321,124 @@
 
 /* ── Dark mode ────────────────────────────────────────────── */
 .light-mode body { background-color: #EEF2F7; color: #0B2447; }
+
+/* ═══════════════════════════════════════════════════════════
+   DARK MEDICAL THEME
+   ═══════════════════════════════════════════════════════════ */
+.dark-mode body {
+  background-color: #0A0F1E !important;
+  background-image:
+    radial-gradient(ellipse at 0% 0%, rgba(21,101,192,0.1) 0%, transparent 55%),
+    radial-gradient(ellipse at 100% 100%, rgba(0,137,123,0.07) 0%, transparent 55%) !important;
+  color: #E3EAF4 !important;
+}
+
+/* Cards */
+.dark-mode .card {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border-color: rgba(100, 130, 180, 0.18) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3), 0 0 0 1px rgba(100,130,180,0.06) !important;
+}
+.dark-mode .card-hover:hover {
+  border-color: rgba(30, 136, 229, 0.45) !important;
+  box-shadow: 0 6px 24px rgba(21,101,192,0.2) !important;
+}
+
+/* Inputs */
+.dark-mode .input {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border-color: rgba(100, 130, 180, 0.22) !important;
+  color: #E3EAF4 !important;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.3) !important;
+}
+.dark-mode .input::placeholder { color: #4A6080 !important; }
+.dark-mode .input:focus {
+  border-color: #1E88E5 !important;
+  box-shadow: 0 0 0 3px rgba(30,136,229,0.18), inset 0 1px 3px rgba(0,0,0,0.3) !important;
+}
+
+/* Buttons */
+.dark-mode .btn-secondary {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border-color: rgba(100, 130, 180, 0.25) !important;
+  color: #90CAF9 !important;
+}
+.dark-mode .btn-secondary:hover {
+  background: rgba(30, 136, 229, 0.12) !important;
+  border-color: #1E88E5 !important;
+}
+
+/* Text */
+.dark-mode .section-title { color: #E3EAF4 !important; }
+.dark-mode .label { color: #7A9CC0 !important; }
+
+/* Stat cards */
+.dark-mode .stat-card {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border-color: rgba(100, 130, 180, 0.18) !important;
+}
+
+/* Risk badges */
+.dark-mode .badge-low {
+  background: rgba(46,125,50,0.2) !important;
+  color: #66BB6A !important;
+  border-color: rgba(46,125,50,0.35) !important;
+}
+.dark-mode .badge-medium {
+  background: rgba(230,81,0,0.2) !important;
+  color: #FFA726 !important;
+  border-color: rgba(230,81,0,0.35) !important;
+}
+.dark-mode .badge-high {
+  background: rgba(198,40,40,0.2) !important;
+  color: #EF5350 !important;
+  border-color: rgba(198,40,40,0.35) !important;
+}
+
+/* Vital cards */
+.dark-mode .vital-card {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border-color: rgba(100, 130, 180, 0.2) !important;
+}
+
+/* Text color overrides */
+.dark-mode p, .dark-mode span, .dark-mode li, .dark-mode td, .dark-mode th {
+  color: inherit;
+}
+.dark-mode [style*="color: #0B2447"],
+.dark-mode [style*="color:#0B2447"] { color: #E3EAF4 !important; }
+.dark-mode [style*="color: #4A6080"],
+.dark-mode [style*="color:#4A6080"] { color: #7A9CC0 !important; }
+.dark-mode [style*="color: #8FA3C0"],
+.dark-mode [style*="color:#8FA3C0"] { color: #4A6080 !important; }
+
+/* Background overrides */
+.dark-mode [style*="background: white"],
+.dark-mode [style*="background:white"],
+.dark-mode [style*="background: #F7F9FC"],
+.dark-mode [style*="background: #EEF2F7"],
+.dark-mode [style*="background:#EEF2F7"] {
+  background: rgba(15, 23, 42, 0.9) !important;
+}
+.dark-mode [style*="background: #E3F2FD"] { background: rgba(21,101,192,0.15) !important; }
+.dark-mode [style*="background: #F3E5F5"] { background: rgba(123,31,162,0.15) !important; }
+
+/* ECG grid in dark mode */
+.dark-mode .card-ecg {
+  background-image:
+    linear-gradient(rgba(30,136,229,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30,136,229,0.06) 1px, transparent 1px) !important;
+}
+
+/* Scrollbar dark */
+.dark-mode ::-webkit-scrollbar-thumb { background: rgba(100,130,180,0.25); }
+.dark-mode ::-webkit-scrollbar-thumb:hover { background: #1E88E5; }
+
+/* Selection dark */
+.dark-mode ::selection { background: rgba(30,136,229,0.3); color: #E3EAF4; }
+
+/* Risk/info alerts in dark mode */
+.dark-mode [style*="background: #FFEBEE"] { background: rgba(198,40,40,0.12) !important; border-color: rgba(198,40,40,0.3) !important; }
+.dark-mode [style*="background: #E8F5E9"] { background: rgba(46,125,50,0.12) !important; border-color: rgba(46,125,50,0.3) !important; }
+.dark-mode [style*="background: #FFF3E0"] { background: rgba(230,81,0,0.12) !important; border-color: rgba(230,81,0,0.3) !important; }
+.dark-mode [style*="background: #F7F9FC"] { background: rgba(15,23,42,0.6) !important; }
