@@ -36,7 +36,6 @@ export default function Navbar({ unreadCount = 0 }) {
   const links = isAdmin ? adminLinks : patientLinks
   const isActive = (p) => location.pathname === p
 
-  const currentLang = LANGUAGES.find(l => l.code === lang)
 
   return (
     <nav style={{ background: 'rgba(2,6,23,0.96)', borderBottom: '1px solid rgba(8,145,178,0.22)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', position: 'sticky', top: 0, zIndex: 50, boxShadow: '0 4px 24px rgba(0,0,0,0.45)' }}>
