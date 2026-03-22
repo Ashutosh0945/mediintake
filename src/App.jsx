@@ -18,7 +18,6 @@ import Notifications from './pages/patient/Notifications'
 import ChangePassword from './pages/patient/ChangePassword'
 import MedicationReminders from './pages/patient/MedicationReminders'
 import HospitalsNearMe from './pages/patient/HospitalsNearMe'
-import PharmacyFinder from './pages/patient/PharmacyFinder'
 import Vaccinations from './pages/patient/Vaccinations'
 import HealthScoreCard from './pages/patient/HealthScoreCard'
 import AdminDashboard from './pages/admin/AdminDashboard'
@@ -32,8 +31,8 @@ import PrintPatientSummary from './pages/admin/PrintPatientSummary'
 export default function App() {
   return (
     <ThemeProvider>
-        <ToastProvider>
-          <AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Landing />} />
@@ -51,7 +50,6 @@ export default function App() {
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="/change-password" element={<ChangePassword />} />
                 <Route path="/medication-reminders" element={<MedicationReminders />} />
-                <Route path="/pharmacy" element={<PharmacyFinder />} />
                 <Route path="/hospitals-near-me" element={<HospitalsNearMe />} />
                 <Route path="/vaccinations" element={<Vaccinations />} />
                 <Route path="/health-score" element={<HealthScoreCard />} />
@@ -70,8 +68,8 @@ export default function App() {
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </BrowserRouter>
-          </AuthProvider>
-        </ToastProvider>
-      </ThemeProvider>
+        </AuthProvider>
+      </ToastProvider>
+    </ThemeProvider>
   )
 }
