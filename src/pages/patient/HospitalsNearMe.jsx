@@ -69,18 +69,27 @@ export default function HospitalsNearMe() {
     setLoading(true)
     setError('')
     try {
-      const query = `
-        [out:json][timeout:25];
-        (
-          node["amenity"="hospital"](around:${radius},${loc.lat},${loc.lng});
-          way["amenity"="hospital"](around:${radius},${loc.lat},${loc.lng});
-          node["amenity"="clinic"](around:${radius},${loc.lat},${loc.lng});
-          node["healthcare"="hospital"](around:${radius},${loc.lat},${loc.lng});
-          node["healthcare"="clinic"](around:${radius},${loc.lat},${loc.lng});
-        );
-        out body center;
-      `
-      const res = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: query })
+      const query = `[out:json][timeout:30];(node["amenity"="hospital"](around:${radius},${loc.lat},${loc.lng});way["amenity"="hospital"](around:${radius},${loc.lat},${loc.lng});node["amenity"="clinic"](around:${radius},${loc.lat},${loc.lng});node["healthcare"="hospital"](around:${radius},${loc.lat},${loc.lng}););out body center;`
+      const mirrors = [
+        'https://overpass-api.de/api/interpreter',
+        'https://overpass.kumi.systems/api/interpreter',
+      ]
+      let res = null
+      for (const url of mirrors) {
+        try {
+          const ctrl = new AbortController()
+          const t = setTimeout(() => ctrl.abort(), 35000)
+          res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'data=' + encodeURIComponent(query),
+            signal: ctrl.signal,
+          })
+          clearTimeout(t)
+          if (res.ok) break
+        } catch { continue }
+      }
+      if (!res || !res.ok) throw new Error('All mirrors failed')
       const data = await res.json()
       const results = data.elements
         .filter(el => el.tags?.name)
@@ -103,7 +112,7 @@ export default function HospitalsNearMe() {
       setHospitals(results)
       if (results.length === 0) setError(`No hospitals found within ${radius / 1000}km. Try increasing the radius.`)
     } catch {
-      setError('Failed to fetch hospitals. Please check your connection and try again.')
+      setError('Map service timed out. Try a smaller radius (2-3km) or try again in 30 seconds.')
     }
     setLoading(false)
   }

@@ -48,8 +48,27 @@ export default function PharmacyFinder() {
   async function fetchPharmacies(loc) {
     setLoading(true); setError('')
     try {
-      const query = `[out:json][timeout:25];(node["amenity"="pharmacy"](around:${radius},${loc.lat},${loc.lng});way["amenity"="pharmacy"](around:${radius},${loc.lat},${loc.lng});node["shop"="chemist"](around:${radius},${loc.lat},${loc.lng}););out body center;`
-      const res = await fetch('https://overpass-api.de/api/interpreter', { method: 'POST', body: query })
+      const query = `[out:json][timeout:60];(node["amenity"="pharmacy"](around:${radius},${loc.lat},${loc.lng});way["amenity"="pharmacy"](around:${radius},${loc.lat},${loc.lng});node["shop"="chemist"](around:${radius},${loc.lat},${loc.lng}););out body center;`
+      let res = null
+      const mirrors = [
+        'https://overpass-api.de/api/interpreter',
+        'https://overpass.kumi.systems/api/interpreter',
+      ]
+      for (const url of mirrors) {
+        try {
+          const ctrl = new AbortController()
+          const t = setTimeout(() => ctrl.abort(), 35000)
+          res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'data=' + encodeURIComponent(query),
+            signal: ctrl.signal,
+          })
+          clearTimeout(t)
+          if (res.ok) break
+        } catch { continue }
+      }
+      if (!res || !res.ok) throw new Error('All mirrors failed')
       const data = await res.json()
       const results = data.elements.filter(el => el.tags?.name).map(el => {
         const lat = el.lat || el.center?.lat
@@ -65,7 +84,7 @@ export default function PharmacyFinder() {
       }).sort((a, b) => a.dist - b.dist).slice(0, 20)
       setPharmacies(results)
       if (results.length === 0) setError(`No pharmacies found within ${radius/1000}km. Try increasing the radius.`)
-    } catch { setError('Failed to fetch pharmacies. Check your connection.') }
+    } catch { setError('Map service timed out. Try a smaller radius or try again in 30 seconds.') }
     setLoading(false)
   }
 
